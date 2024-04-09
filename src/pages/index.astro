@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import FormattedDate from "../components/FormattedDate.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Author from "src/components/Author.astro";
 
 const posts = (await getCollection("blog")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
@@ -13,16 +14,31 @@ const posts = (await getCollection("blog")).sort(
     <section class="flex flex-col space-y-4">
       {
         posts.map(post => (
-          <article class="space-y-2">
+          <article class="prose-img:m-0 prose-h3:mb-1 prose-h3:mt-0">
             <a href={`/${post.slug}/`}>
-              <h3 class="line-clamp-3 transition duration-300 hover:text-sky-600 dark:hover:text-sky-500">
-                {post.data.title}
-              </h3>
+              <div class="flex relative flex-col space-y-2 rounded-lg shadow-lg dark:bg-darkBg bg-lightBg">
+                <img
+                  class="w-full h-24 rounded-t-lg object-cover"
+                  src={`/${post.data.heroImage}`}
+                  alt={post.data.title}
+                />
+                <div class="px-4 pb-4 pt-2">
+                  <a href={`/${post.slug}/`} class="no-underline">
+                    <h3 class="line-clamp-2 transition duration-300 hover:text-sky-600 dark:hover:text-sky-500">
+                      {post.data.title}
+                    </h3>
+                  </a>
+                  <p class="sm:line-clamp-3 line-clamp-2">
+                    {post.data.description}
+                  </p>
+                  <div class="flex items-center space-x-2 text-sm">
+                    <FormattedDate date={post.data.pubDate} />
+                    <span>•</span>
+                    <Author author={post.data.author} />
+                  </div>
+                </div>
+              </div>
             </a>
-            <p class="line-clamp-3">{post.data.description}</p>
-            <div class="block text-sm">
-              <FormattedDate date={post.data.pubDate} />
-            </div>
           </article>
         ))
       }

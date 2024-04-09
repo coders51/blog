@@ -8,12 +8,7 @@ const { title, description, headings } = Astro.props;
 
 <html
   lang="en"
-  class="min-h-screen bg-lightBg bg-gradientLight dark:bg-darkBg dark:bg-gradientDark"
-  style={{
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "cover",
-    backgroundAttachment: "fixed"
-  }}
+  class="min-h-screen bg-lightBg bg-gradientLight dark:bg-darkBg dark:bg-gradientDark bg-center bg-cover bg-no-repeat bg-fixed"
 >
   <head>
     <BaseHead title={title} description={description} />
@@ -26,7 +21,7 @@ const { title, description, headings } = Astro.props;
           <div
             class="prose prose-sky w-full pt-10 lg:prose-lg dark:prose-sky dark:prose-invert marker:text-black prose-a:underline-offset-2 prose-blockquote:border-l-coders51 prose-code:text-white dark:marker:text-white prose-blockquote:dark:border-l-white"
           >
-            <DarkModeToggle client:visible />
+            <DarkModeToggle client:only />
             <slot />
           </div>
         </div>

@@ -48,16 +48,8 @@ const { headings } = await post.render();
     <div class="flex flex-col gap-y-2 text-sm">
       <div class="flex items-center space-x-2">
         <FormattedDate date={pubDate} />
-        {
-          updatedDate && (
-            <div class="flex rounded-lg px-2 py-1 space-x-1 bg-white/30 dark:bg-black/30">
-              <span class="text-coders51 dark:text-coders51dark">
-                Last updated on:{" "}
-              </span>
-              <FormattedDate date={updatedDate} icon={false} />
-            </div>
-          )
-        }
+        <span>•</span>
+        <Author author={author} />
       </div>
       {
         timeRead && (
@@ -69,7 +61,16 @@ const { headings } = await post.render();
           </div>
         )
       }
-      <Author author={author} />
+      {
+        updatedDate && (
+          <div class="flex rounded-lg px-2 py-1 space-x-1 bg-white/30 dark:bg-black/30 w-fit">
+            <span class="text-coders51 dark:text-coders51dark">
+              Last updated on:{" "}
+            </span>
+            <FormattedDate date={updatedDate} icon={false} />
+          </div>
+        )
+      }
     </div>
     <hr />
     <slot />
