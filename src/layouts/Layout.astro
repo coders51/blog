@@ -1,0 +1,71 @@
+---
+import TableOfContents from "src/components/TableOfContents.astro";
+import BaseHead from "../components/BaseHead.astro";
+import DarkModeToggle from "../components/DarkModeToggle";
+
+const { title, description, headings } = Astro.props;
+---
+
+<html
+  lang="en"
+  class="min-h-screen bg-lightBg bg-gradientLight dark:bg-darkBg dark:bg-gradientDark"
+  style={{
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    backgroundAttachment: "fixed"
+  }}
+>
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
+  <body>
+    <main>
+      <article>
+        <div class="flex items-start justify-center">
+          {headings?.length > 0 && <TableOfContents headings={headings} />}
+          <div
+            class="prose prose-sky w-full pt-10 lg:prose-lg dark:prose-sky dark:prose-invert marker:text-black prose-a:underline-offset-2 prose-blockquote:border-l-coders51 prose-code:text-white dark:marker:text-white prose-blockquote:dark:border-l-white"
+          >
+            <DarkModeToggle client:visible />
+            <slot />
+          </div>
+        </div>
+      </article>
+    </main>
+    <script is:inline>
+      document.addEventListener("astro:after-swap", () => {
+        if (
+          localStorage.theme === "dark" ||
+          (!("theme" in localStorage) &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches)
+        ) {
+          document.documentElement.classList.add("dark");
+        }
+      });
+
+      if (
+        localStorage.theme === "dark" ||
+        (!("theme" in localStorage) &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+
+      const cl = document.documentElement.classList;
+      const themeAlreadyApplied = cl.contains("light") || cl.contains("dark");
+      if (!themeAlreadyApplied) {
+        cl.add(localStorage.theme);
+      }
+      const meta = document.querySelector("meta[name=color-scheme]");
+      if (meta) {
+        if (theme === "dark") {
+          meta.content = "dark light";
+        } else if (theme === "light") {
+          meta.content = "light dark";
+        }
+      }
+    </script>
+  </body>
+</html>

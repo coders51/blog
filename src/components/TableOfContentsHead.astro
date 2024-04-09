@@ -1,0 +1,28 @@
+---
+import type { TocElement } from "src/utils/generateTableOfContents";
+
+interface Props {
+  heading: TocElement;
+}
+
+const {
+  heading: { depth, slug, children, text }
+} = Astro.props;
+---
+
+<li class={`${depth > 2 ? "ms-2" : ""}`}>
+  <a
+    aria-label={`Scroll to: ${text}`}
+    class={`block line-clamp-2 hover:text-accent ${depth <= 2 ? "mt-3" : "mt-2 text-xs"}`}
+    href={`#${slug}`}><span>#</span>{text}</a
+  >
+  {
+    children.length > 0 && (
+      <ul>
+        {children.map(subheading => (
+          <Astro.self heading={subheading} />
+        ))}
+      </ul>
+    )
+  }
+</li>

@@ -1,0 +1,78 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Footer from "../components/Footer.astro";
+import Author from "../components/Author.astro";
+import FormattedDate from "../components/FormattedDate.astro";
+import { BackIcon } from "../components/icons/BackIcon";
+import { ClockIcon } from "../components/icons/ClockIcon";
+import Layout from "./Layout.astro";
+
+interface Props {
+  post: CollectionEntry<"blog">;
+}
+
+const { post } = Astro.props;
+
+const {
+  title,
+  description,
+  pubDate,
+  updatedDate,
+  author,
+  heroImage,
+  timeRead
+} = post.data;
+
+const { headings } = await post.render();
+---
+
+<Layout title={title} description={description} headings={headings}>
+  <div class="px-10 pb-10">
+    <a
+      href="/"
+      class="flex w-fit items-center self-start space-x-2 no-underline pb-10"
+    >
+      <BackIcon customClassName="transition duration-300 hover:scale-110" />
+      <span>Blog</span>
+    </a>
+    <h1>{title}</h1>
+    {
+      heroImage && (
+        <img
+          src={`/${heroImage}`}
+          alt={title}
+          class="w-full rounded object-cover max-h-96"
+        />
+      )
+    }
+    <div class="flex flex-col gap-y-2 text-sm">
+      <div class="flex items-center space-x-2">
+        <FormattedDate date={pubDate} />
+        {
+          updatedDate && (
+            <div class="flex rounded-lg px-2 py-1 space-x-1 bg-white/30 dark:bg-black/30">
+              <span class="text-coders51 dark:text-coders51dark">
+                Last updated on:{" "}
+              </span>
+              <FormattedDate date={updatedDate} icon={false} />
+            </div>
+          )
+        }
+      </div>
+      {
+        timeRead && (
+          <div class="flex items-center space-x-1">
+            <ClockIcon customClassName="w-5 h-5" />
+            <span class="text-sm text-coders51 dark:text-coders51dark">
+              {timeRead} min read
+            </span>
+          </div>
+        )
+      }
+      <Author author={author} />
+    </div>
+    <hr />
+    <slot />
+  </div>
+  <Footer />
+</Layout>

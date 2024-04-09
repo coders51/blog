@@ -1,0 +1,31 @@
+---
+import { getCollection } from "astro:content";
+import FormattedDate from "../components/FormattedDate.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<BaseLayout title="C51 👽 Blog" description="blog page list">
+  <main>
+    <section class="flex flex-col space-y-4">
+      {
+        posts.map(post => (
+          <article class="space-y-2">
+            <a href={`/${post.slug}/`}>
+              <h3 class="line-clamp-3 transition duration-300 hover:text-sky-600 dark:hover:text-sky-500">
+                {post.data.title}
+              </h3>
+            </a>
+            <p class="line-clamp-3">{post.data.description}</p>
+            <div class="block text-sm">
+              <FormattedDate date={post.data.pubDate} />
+            </div>
+          </article>
+        ))
+      }
+    </section>
+  </main>
+</BaseLayout>

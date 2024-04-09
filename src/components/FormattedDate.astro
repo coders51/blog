@@ -1,0 +1,26 @@
+---
+import { CalendarIcon } from "./icons/CalendarIcon";
+
+interface Props {
+  date: Date;
+  icon?: boolean;
+}
+
+const { date, icon = true } = Astro.props;
+---
+
+<div class="flex items-center space-x-1">
+  {icon && <CalendarIcon customClassName="w-5 h-5" />}
+  <time
+    class="text-sm text-coders51 dark:text-coders51dark"
+    datetime={date.toISOString()}
+  >
+    {
+      date.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric"
+      })
+    }
+  </time>
+</div>

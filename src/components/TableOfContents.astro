@@ -1,0 +1,32 @@
+---
+import type { MarkdownHeading } from "astro";
+import TableOfContentsHead from "src/components/TableOfContentsHead.astro";
+
+import {
+  generateTableOfContents,
+  type TocElement
+} from "src/utils/generateTableOfContents";
+
+interface Props {
+  headings: MarkdownHeading[];
+}
+
+const { headings } = Astro.props;
+
+const toc = generateTableOfContents(headings);
+---
+
+<aside class="sticky top-28 order-2 ml-12 -me-12 hidden lg:block">
+  <div
+    class="prose prose-sky dark:prose-sky dark:prose-invert marker:text-black prose-a:underline-offset-2 prose-blockquote:border-l-coders51 prose-code:text-white dark:marker:text-white prose-blockquote:dark:border-l-white"
+  >
+    <h3>Table of Contents</h3>
+    <ul class="text-xs list-decimal">
+      {
+        toc.map((heading: TocElement) => (
+          <TableOfContentsHead heading={heading} />
+        ))
+      }
+    </ul>
+  </div>
+</aside>
