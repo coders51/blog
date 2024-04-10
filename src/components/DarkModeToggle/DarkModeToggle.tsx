@@ -16,7 +16,7 @@ const DarkModeToggle = () => {
     if (darkMode) {
       document.documentElement.classList.add(
         "transition-colors",
-        "duration-300"
+        "duration-100"
       );
       document.documentElement.classList.remove("dark");
       localStorage.theme = "light";
@@ -25,7 +25,7 @@ const DarkModeToggle = () => {
       document.documentElement.classList.add(
         "dark",
         "transition-colors",
-        "duration-300"
+        "duration-100"
       );
       localStorage.theme = "dark";
       setDarkMode(true);

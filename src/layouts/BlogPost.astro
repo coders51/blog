@@ -1,6 +1,5 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import Footer from "../components/Footer.astro";
 import Author from "../components/Author.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import { BackIcon } from "../components/icons/BackIcon";
@@ -30,9 +29,9 @@ const { headings } = await post.render();
   <div class="px-10 pb-10">
     <a
       href="/"
-      class="flex w-fit items-center self-start space-x-2 no-underline pb-10"
+      class="flex w-fit items-center self-start space-x-2 no-underline mb-10"
     >
-      <BackIcon customClassName="transition duration-300 hover:scale-110" />
+      <BackIcon />
       <span>Blog</span>
     </a>
     <h1>{title}</h1>
@@ -75,5 +74,4 @@ const { headings } = await post.render();
     <hr />
     <slot />
   </div>
-  <Footer />
 </Layout>

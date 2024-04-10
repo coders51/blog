@@ -1,13 +1,9 @@
 export const FacebookIcon = () => {
   return (
-    <a
-      target="_blank"
-      href="https://www.facebook.com/coders51"
-      className="transition duration-300 hover:scale-110"
-    >
+    <a target="_blank" href="https://www.facebook.com/coders51">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-4 w-4 text-coders51 lg:h-6 lg:w-6 dark:text-white"
+        className="h-4 transition duration-300 hover:scale-110 w-4 lg:h-6 lg:w-6 dark:text-white"
         fill="currentColor"
         viewBox="0 0 24 24"
       >

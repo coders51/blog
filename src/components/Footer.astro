@@ -5,9 +5,38 @@ import { XIcon } from "./icons/XIcon";
 ---
 
 <footer>
-  <div class="mx-auto flex items-center justify-center gap-x-8 py-10">
-    <LinkedinIcon />
-    <XIcon />
-    <FacebookIcon />
+  <div
+    class="mx-auto lg:px-10 lg:py-8 px-8 py-4 dark:bg-coders51dark/20 bg-darkBg/20"
+  >
+    <div class="lg:w-1/2 mx-auto">
+      <div class="w-full flex items-center justify-center lg:justify-start">
+        <div
+          class="sm:w-1/2 w-full items-center flex justify-center lg:justify-start"
+        >
+          <a href="http://www.coders51.com" class="inline-block">
+            <img src="/assets/logo.png" alt="Coders51 Logo" class="w-28" />
+          </a>
+        </div>
+      </div>
+      <div class="mt-8 lg:mt-5 flex w-full lg:flex-row flex-col-reverse gap-4">
+        <div class="lg:w-1/2 w-full flex justify-center">
+          <span
+            class="text-xs text-center lg:text-start sm:text-sm dark:text-white"
+          >
+            &copy; Copyright 2022. All Rights Reserved.
+            <br />
+            coders51 SRL - Viale Angelo Masini 12/14 - 40126 Bologna (BO) - Italy
+            - VAT ID 03455241202
+          </span>
+        </div>
+        <div class="lg:w-1/2 w-full flex lg:justify-end justify-center">
+          <div class="flex items-center justify-center gap-x-8">
+            <LinkedinIcon />
+            <XIcon />
+            <FacebookIcon />
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </footer>

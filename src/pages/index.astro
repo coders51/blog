@@ -11,12 +11,12 @@ const posts = (await getCollection("blog")).sort(
 
 <BaseLayout title="C51 👽 Blog" description="blog page list">
   <main>
-    <section class="flex flex-col space-y-4">
+    <section class="flex flex-col gap-4">
       {
         posts.map(post => (
-          <article class="prose-img:m-0 prose-h3:mb-1 prose-h3:mt-0">
+          <div class="prose-img:m-0 prose-h3:mb-1 prose-h3:mt-0">
             <a href={`/${post.slug}/`}>
-              <div class="flex relative flex-col space-y-2 rounded-lg shadow-lg dark:bg-darkBg bg-lightBg">
+              <div class="flex relative flex-col space-y-2 rounded-lg shadow-lg dark:bg-darkBg/80 bg-lightBg/30">
                 <img
                   class="w-full h-24 rounded-t-lg object-cover"
                   src={`/${post.data.heroImage}`}
@@ -39,7 +39,7 @@ const posts = (await getCollection("blog")).sort(
                 </div>
               </div>
             </a>
-          </article>
+          </div>
         ))
       }
     </section>

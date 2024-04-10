@@ -2,6 +2,7 @@
 import TableOfContents from "src/components/TableOfContents.astro";
 import BaseHead from "../components/BaseHead.astro";
 import DarkModeToggle from "../components/DarkModeToggle";
+import Footer from "src/components/Footer.astro";
 
 const { title, description, headings } = Astro.props;
 ---
@@ -14,19 +15,22 @@ const { title, description, headings } = Astro.props;
     <BaseHead title={title} description={description} />
   </head>
   <body>
-    <main>
-      <article>
-        <div class="flex items-start justify-center">
-          {headings?.length > 0 && <TableOfContents headings={headings} />}
-          <div
-            class="prose prose-sky w-full pt-10 lg:prose-lg dark:prose-sky dark:prose-invert marker:text-black prose-a:underline-offset-2 prose-blockquote:border-l-coders51 prose-code:text-white dark:marker:text-white prose-blockquote:dark:border-l-white"
-          >
-            <DarkModeToggle client:only />
-            <slot />
+    <div class="min-h-screen flex flex-col justify-between">
+      <main class="mb-auto">
+        <article>
+          <div class="flex items-start justify-center">
+            {headings?.length > 0 && <TableOfContents headings={headings} />}
+            <div
+              class="prose prose-sky w-full pt-10 lg:prose-lg dark:prose-slate dark:prose-invert marker:text-black prose-a:underline-offset-2 prose-blockquote:border-l-coders51 prose-code:text-white dark:marker:text-white prose-blockquote:dark:border-l-white"
+            >
+              <DarkModeToggle client:only />
+              <slot />
+            </div>
           </div>
-        </div>
-      </article>
-    </main>
+        </article>
+      </main>
+      <Footer />
+    </div>
     <script is:inline>
       document.addEventListener("astro:after-swap", () => {
         if (

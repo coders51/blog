@@ -4,7 +4,7 @@ description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ex fugit
 author: Andrea Junior Berselli
 pubDate: '03-25-2024 10:00'
 updatedDate: '04-05-2024 12:00'
-heroImage: 'blog-placeholder-about.jpg'
+heroImage: 'first-post/hero.jpg'
 timeRead: '3'
 ---
 
