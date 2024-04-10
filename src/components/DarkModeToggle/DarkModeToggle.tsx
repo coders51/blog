@@ -19,7 +19,7 @@ const DarkModeToggle = () => {
         "duration-100"
       );
       document.documentElement.classList.remove("dark");
-      localStorage.theme = "light";
+      localStorage.setItem("theme", "light");
       setDarkMode(false);
     } else {
       document.documentElement.classList.add(
@@ -27,9 +27,11 @@ const DarkModeToggle = () => {
         "transition-colors",
         "duration-100"
       );
-      localStorage.theme = "dark";
+      localStorage.setItem("theme", "dark");
       setDarkMode(true);
     }
+
+    window.dispatchEvent(new Event("themeChange"));
   }
 
   return (

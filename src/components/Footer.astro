@@ -6,7 +6,7 @@ import { XIcon } from "./icons/XIcon";
 
 <footer>
   <div
-    class="mx-auto lg:px-10 lg:py-8 px-8 py-4 dark:bg-coders51dark/20 bg-darkBg/20"
+    class="mx-auto lg:px-10 lg:py-8 px-8 py-4 border-t border-darkBg dark:border-coders51dark"
   >
     <div class="lg:w-1/2 mx-auto">
       <div class="w-full flex items-center justify-center lg:justify-start">
@@ -14,7 +14,12 @@ import { XIcon } from "./icons/XIcon";
           class="sm:w-1/2 w-full items-center flex justify-center lg:justify-start"
         >
           <a href="http://www.coders51.com" class="inline-block">
-            <img src="/assets/logo.png" alt="Coders51 Logo" class="w-28" />
+            <img
+              id="footer-logo"
+              src="/assets/logo.png"
+              alt="Coders51 Logo"
+              class="w-28"
+            />
           </a>
         </div>
       </div>
@@ -40,3 +45,23 @@ import { XIcon } from "./icons/XIcon";
     </div>
   </div>
 </footer>
+
+<script is:inline>
+  const footerLogo = document.getElementById("footer-logo");
+
+  function updateTheme() {
+    const theme = localStorage.getItem("theme");
+
+    if (theme === "dark") {
+      footerLogo.src = "/assets/logo-alt.png";
+    } else {
+      footerLogo.src = "/assets/logo.png";
+    }
+  }
+
+  // Initial update based on the theme
+  updateTheme();
+
+  // Listen for theme change event
+  window.addEventListener("themeChange", updateTheme);
+</script>
