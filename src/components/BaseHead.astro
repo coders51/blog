@@ -13,12 +13,16 @@ interface Props {
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 const { title, description, image = "/assets/logo.png" } = Astro.props;
+
+const metaTitle =
+  "coders51 - We design, build and evolve scalable software platforms";
 ---
 
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
@@ -34,19 +38,37 @@ const { title, description, image = "/assets/logo.png" } = Astro.props;
 <title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
+<meta
+  name="keywords"
+  content="scalable software platforms, technical partners, Elixir, Erlang, RabbitMQ, React, React Native, CQRS, es, event sourcing, nodejs, javascript, typescript, microservices, ddd, tdd, domain driven design"
+/>
+
+<!-- Schema.org for Google -->
+<meta itemprop="name" content={metaTitle} />
+<meta itemprop="description" content={description} />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
-<meta property="og:url" content={Astro.url} />
-<meta property="og:title" content={title} />
+<meta property="og:image" content="http://www.coders51.com/img/share2.jpg" />
+<meta property="og:url" content="http://www.coders51.com/" />
+<meta property="og:title" content={metaTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={new URL(image, Astro.url)} />
+<meta property="og:site_name" content="coders51" />
+<meta property="fb:app_id" content="1028463787335394" />
 
 <!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={Astro.url} />
-<meta property="twitter:title" content={title} />
+<meta property="twitter:card" content="summary" />
+<meta property="twitter:title" content={metaTitle} />
+<meta property="twitter:site" content="@coders51" />
 <meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL(image, Astro.url)} />
+<meta
+  property="twitter:image"
+  content={new URL(image, "http://www.coders51.com/img/share2.jpg")}
+/>
+
+<meta name="copyright" content="coders51" />
+<meta name="author" content="Andrea Junior Berselli" />
+<meta name="reply-to" content="admin@coders51.com" />
 
 <ViewTransitions />
