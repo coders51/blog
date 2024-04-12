@@ -3,16 +3,14 @@ import { getCollection } from "astro:content";
 import FormattedDate from "../components/FormattedDate.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Author from "src/components/Author.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "src/consts";
 
 const posts = (await getCollection("blog")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 ---
 
-<BaseLayout
-  title="Coders51 👽 Blog"
-  description="A blog of a team of software experts with technological leadership and a consulting partner for the management and governance of complex software architectures"
->
+<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
   <main>
     <section class="flex flex-col gap-4">
       {
