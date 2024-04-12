@@ -13,9 +13,6 @@ interface Props {
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 const { title, description, image = "/assets/logo.png" } = Astro.props;
-
-const metaTitle =
-  "coders51 - We design, build and evolve scalable software platforms";
 ---
 
 <!-- Global Metadata -->
@@ -44,14 +41,14 @@ const metaTitle =
 />
 
 <!-- Schema.org for Google -->
-<meta itemprop="name" content={metaTitle} />
+<meta itemprop="name" content={title} />
 <meta itemprop="description" content={description} />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
 <meta property="og:image" content="http://www.coders51.com/img/share2.jpg" />
 <meta property="og:url" content="http://www.coders51.com/" />
-<meta property="og:title" content={metaTitle} />
+<meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={new URL(image, Astro.url)} />
 <meta property="og:site_name" content="coders51" />
@@ -59,7 +56,7 @@ const metaTitle =
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary" />
-<meta property="twitter:title" content={metaTitle} />
+<meta property="twitter:title" content={title} />
 <meta property="twitter:site" content="@coders51" />
 <meta property="twitter:description" content={description} />
 <meta
