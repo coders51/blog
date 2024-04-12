@@ -34,11 +34,11 @@ const { headings } = await post.render();
       <BackIcon />
       <span>Blog</span>
     </a>
-    <h1>{title}</h1>
+    <h1 class="">{title}</h1>
     {
       heroImage && (
         <img
-          src={`/${heroImage}`}
+          src={`/posts/${heroImage}`}
           alt={title}
           class="w-full rounded object-cover max-h-96"
         />

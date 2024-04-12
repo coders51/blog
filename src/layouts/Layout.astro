@@ -1,8 +1,8 @@
 ---
 import TableOfContents from "src/components/TableOfContents.astro";
 import BaseHead from "../components/BaseHead.astro";
-import DarkModeToggle from "../components/DarkModeToggle";
 import Footer from "src/components/Footer.astro";
+import Header from "src/components/Header.astro";
 
 const { title, description, headings } = Astro.props;
 ---
@@ -16,14 +16,14 @@ const { title, description, headings } = Astro.props;
   </head>
   <body>
     <div class="min-h-screen flex flex-col justify-between">
-      <main class="mb-auto">
+      <Header />
+      <main class="mb-auto mt-20">
         <article>
           <div class="flex items-start justify-center">
             {headings?.length > 0 && <TableOfContents headings={headings} />}
             <div
-              class="prose prose-sky w-full pt-10 lg:prose-lg dark:prose-slate dark:prose-invert marker:text-black prose-a:underline-offset-2 prose-blockquote:border-l-coders51 prose-code:text-white dark:marker:text-white prose-blockquote:dark:border-l-white"
+              class="prose prose-sky w-full pt-10 xl:prose-lg dark:prose-slate dark:prose-invert marker:text-black prose-a:underline-offset-2 prose-blockquote:border-l-coders51 prose-code:text-white dark:marker:text-white prose-blockquote:dark:border-l-white"
             >
-              <DarkModeToggle client:only />
               <slot />
             </div>
           </div>

@@ -35,13 +35,17 @@ const DarkModeToggle = () => {
   }
 
   return (
-    <div className="absolute right-10">
+    <div id="theme-toggle">
       <button
         className="transition duration-300 hover:scale-110"
         aria-label={`Switch to ${darkMode ? "light" : "dark"} mode`}
         onClick={handleClick}
       >
-        {darkMode ? <SunIcon /> : <MoonIcon />}
+        {darkMode ? (
+          <SunIcon customClassName="fill-coders51dark" />
+        ) : (
+          <MoonIcon customClassName="fill-coders51dark" />
+        )}
       </button>
     </div>
   );

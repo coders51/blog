@@ -13,18 +13,19 @@ import { XIcon } from "./icons/XIcon";
         <div
           class="sm:w-1/2 w-full items-center flex justify-center lg:justify-start"
         >
-          <a href="http://www.coders51.com" class="inline-block">
+          <a href="https://www.coders51.com" class="inline-block">
             <img
               id="footer-logo"
               src="/assets/logo.png"
               alt="Coders51 Logo"
               class="w-28"
+              transition:persist
             />
           </a>
         </div>
       </div>
       <div class="mt-8 lg:mt-5 flex w-full lg:flex-row flex-col-reverse gap-4">
-        <div class="lg:w-1/2 w-full flex justify-center">
+        <div class="lg:w-1/2 w-full flex justify-center lg:justify-start">
           <span
             class="text-xs text-center lg:text-start sm:text-sm dark:text-white"
           >
@@ -47,13 +48,12 @@ import { XIcon } from "./icons/XIcon";
 </footer>
 
 <script is:inline>
-  const footerLogo = document.getElementById("footer-logo");
-
   function updateTheme() {
+    const footerLogo = document.getElementById("footer-logo");
     const theme = localStorage.getItem("theme");
 
     if (theme === "dark") {
-      footerLogo.src = "/assets/logo-alt.png";
+      footerLogo.src = "/assets/logo_white_big.png";
     } else {
       footerLogo.src = "/assets/logo.png";
     }
