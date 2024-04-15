@@ -26,7 +26,7 @@ const { headings } = await post.render();
 ---
 
 <Layout title={title} description={description} headings={headings}>
-  <div class="px-10 pb-10">
+  <div class="px-10 pb-10 sm:px-0">
     <a
       href="/"
       class="flex w-fit items-center self-start space-x-2 no-underline mb-10"
@@ -34,7 +34,6 @@ const { headings } = await post.render();
       <BackIcon />
       <span>Blog</span>
     </a>
-    <h1 class="">{title}</h1>
     {
       heroImage && (
         <img
@@ -44,6 +43,7 @@ const { headings } = await post.render();
         />
       )
     }
+    <h1 class="text-center">{title}</h1>
     <div class="flex flex-col gap-y-2 text-sm">
       <div class="flex items-center space-x-2">
         <FormattedDate date={pubDate} />

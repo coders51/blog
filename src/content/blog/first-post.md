@@ -1,10 +1,10 @@
 ---
-title: 'Frontend Project setup - how to start working on it'
-description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ex fugit suscipit illum excepturi repellat vel, itaque nostrum debitis inventore veritatis recusandae, animi distinctio at voluptates ratione consequuntur minus voluptate eum!"
+title: 'Astro JS - the birth of the coders51 blog'
+description: "Our company needed a blog, what better opportunity to experiment with Astro? Let's see how it was made and why we chose Astro"
 author: Andrea Junior Berselli
 pubDate: '03-25-2024 10:00'
 updatedDate: '04-05-2024 12:00'
-heroImage: 'first-post/hero.jpg'
+heroImage: 'first-post/hero.png'
 timeRead: '3'
 ---
 
