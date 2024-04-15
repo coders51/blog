@@ -52,7 +52,10 @@ import { XIcon } from "./icons/XIcon";
     const footerLogo = document.getElementById("footer-logo");
     const theme = localStorage.getItem("theme");
 
-    if (theme === "dark") {
+    if (
+      theme === "dark" ||
+      (!theme && window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
       footerLogo.src = "/assets/logo_white_big.png";
     } else {
       footerLogo.src = "/assets/logo.png";
