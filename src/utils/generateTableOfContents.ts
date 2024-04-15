@@ -1,4 +1,3 @@
-// Inspired by: https://github.com/withastro/starlight/blob/main/packages/starlight/utils/generateToC.ts
 import type { MarkdownHeading } from "astro";
 
 export interface TocElement extends MarkdownHeading {
@@ -23,9 +22,9 @@ function injectChild(items: TocElement[], item: TocElement): void {
 
 export function generateTableOfContents(
   headings: ReadonlyArray<MarkdownHeading>,
-  { maxHeadingLevel = 4, minHeadingLevel = 2 }: TocOptions = {}
+  { maxHeadingLevel = 3, minHeadingLevel = 2 }: TocOptions = {}
 ) {
-  // ignore headings that are too small or too big (h1 or h5)
+  // ignore headings that are too small or too big (h1 or h4)
   const bodyHeadings = headings.filter(
     ({ depth }) => depth >= minHeadingLevel && depth <= maxHeadingLevel
   );

@@ -75,3 +75,30 @@ const { headings } = await post.render();
     <slot />
   </div>
 </Layout>
+
+<script is:inline>
+  document.addEventListener("astro:page-load", () => {
+    const headerHeight = document.querySelector("#header")?.offsetHeight;
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener("click", function (e) {
+        e.preventDefault();
+
+        const targetId = anchor?.getAttribute("href")?.substr(1);
+
+        if (targetId === undefined) return;
+
+        const targetElement = document.getElementById(targetId);
+
+        if (targetElement) {
+          const offsetTop =
+            targetElement.getBoundingClientRect().top + window.scrollY;
+          window.scrollTo({
+            top: offsetTop - headerHeight,
+            behavior: "smooth"
+          });
+        }
+      });
+    });
+  });
+</script>
