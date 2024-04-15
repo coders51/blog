@@ -10,7 +10,7 @@ const options = {
 };
 
 const LOCALHOST_URL = "http://localhost:4321";
-const LIVE_URL = "https://abjunior92.github.io";
+const LIVE_URL = "https://blog.coders51.com";
 const SCRIPT = process.env.npm_lifecycle_script || "";
 const isBuild = SCRIPT.includes("astro build");
 let BASE_URL = LOCALHOST_URL;
