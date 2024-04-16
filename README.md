@@ -56,9 +56,10 @@ We can follow this convention to call our brand new branches: `post/my-new-post`
 
 ```js
 ---
-title: 'My New Post!'
-description: 'a description of your post...'
-author: 'Rick Sanchez Prime'
+title: 'My New Post!' // required
+description: 'a description of your post...' // required
+author: 'Rick Sanchez Prime' // required
+keywords: ["react", "nextjs", "frontend"] // required, array of strings
 pubDate: '04-12-2024 10:00' // MM-DD-YYYY HH:MM
 updatedDate: '04-05-2024 12:00' // MM-DD-YYYY HH:MM (optional)
 heroImage: 'my-new-post/hero.jpg' // (optional)

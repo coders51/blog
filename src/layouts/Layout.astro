@@ -4,7 +4,8 @@ import BaseHead from "../components/BaseHead.astro";
 import Footer from "src/components/Footer.astro";
 import Header from "src/components/Header.astro";
 
-const { title, description, headings } = Astro.props;
+const { title, description, headings, heroImage, keywords, author } =
+  Astro.props;
 ---
 
 <html
@@ -12,7 +13,13 @@ const { title, description, headings } = Astro.props;
   class="min-h-screen bg-lightBg bg-gradientLight dark:bg-darkBg dark:bg-gradientDark bg-center bg-cover bg-no-repeat bg-fixed"
 >
   <head>
-    <BaseHead title={title} description={description} />
+    <BaseHead
+      title={title}
+      description={description}
+      heroImage={heroImage}
+      keywords={keywords}
+      author={author}
+    />
   </head>
   <body>
     <div class="min-h-screen flex flex-col justify-between">
@@ -22,7 +29,7 @@ const { title, description, headings } = Astro.props;
           <div class="flex items-start justify-center">
             {headings?.length > 0 && <TableOfContents headings={headings} />}
             <div
-              class="prose prose-sky w-full pt-10 xl:prose-xl lg:prose-lg dark:prose-slate dark:prose-invert marker:text-black prose-a:underline-offset-2 prose-blockquote:border-l-coders51 prose-code:text-white dark:marker:text-white prose-blockquote:dark:border-l-white"
+              class="prose prose-sky w-full sm:pt-6 pt-4 xl:prose-xl lg:prose-lg dark:prose-slate dark:prose-invert marker:text-black prose-a:underline-offset-2 prose-blockquote:border-l-coders51 prose-code:text-white dark:marker:text-white prose-blockquote:dark:border-l-white"
             >
               <slot />
             </div>

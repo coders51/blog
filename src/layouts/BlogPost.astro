@@ -19,13 +19,21 @@ const {
   updatedDate,
   author,
   heroImage,
+  keywords,
   timeRead
 } = post.data;
 
 const { headings } = await post.render();
 ---
 
-<Layout title={title} description={description} headings={headings}>
+<Layout
+  title={title}
+  description={description}
+  headings={headings}
+  heroImage={heroImage}
+  keywords={keywords}
+  author={author}
+>
   <div class="px-10 pb-10 sm:px-0">
     <a
       href="/"
