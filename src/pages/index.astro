@@ -15,32 +15,31 @@ const posts = (await getCollection("blog")).sort(
     <section class="flex flex-col gap-4">
       {
         posts.map(post => (
-          <a href={`/${post.slug}/`} class="group no-underline">
-            <div class="prose-img:m-0 prose-h3:mb-1 prose-h3:mt-0 prose-p:mt-0">
-              <div class="flex flex-col rounded-lg shadow-lg dark:bg-darkBg/80 bg-lightBg/30">
-                <img
-                  class="w-full h-32 xl:h-36 rounded-t-lg object-cover"
-                  src={`/posts/${post.data.heroImage}`}
-                  alt={post.data.title}
-                />
-                <div class="px-4 pb-4 pt-2">
-                  <div>
-                    <h3 class="line-clamp-2 transition duration-300 group-hover:text-sky-600 dark:group-hover:text-sky-500">
-                      {post.data.title}
-                    </h3>
-                  </div>
-                  <p class="sm:line-clamp-3 line-clamp-2 leading-tight">
-                    {post.data.description}
-                  </p>
-                  <div class="flex items-center space-x-2 text-sm">
-                    <FormattedDate date={post.data.pubDate} />
-                    <span>•</span>
-                    <Author author={post.data.author} />
-                  </div>
+          <div class="prose-img:m-0 prose-h3:mb-1 prose-h3:mt-0 prose-p:mt-0 group relative">
+            <a href={`/${post.slug}/`} class="absolute z-10 inset-0" />
+            <div class="flex flex-col rounded-lg shadow-lg dark:bg-darkBg/80 bg-lightBg/30">
+              <img
+                class="w-full h-32 xl:h-36 rounded-t-lg object-cover"
+                src={`/posts/${post.data.heroImage}`}
+                alt={post.data.title}
+              />
+              <div class="px-4 pb-4 pt-2">
+                <div class="">
+                  <h3 class="line-clamp-2 transition duration-300 group-hover:text-sky-600 dark:group-hover:text-sky-500">
+                    {post.data.title}
+                  </h3>
+                </div>
+                <p class="sm:line-clamp-3 line-clamp-2 leading-tight">
+                  {post.data.description}
+                </p>
+                <div class="flex items-center space-x-2 text-sm">
+                  <FormattedDate date={post.data.pubDate} />
+                  <span>•</span>
+                  <Author author={post.data.author} />
                 </div>
               </div>
             </div>
-          </a>
+          </div>
         ))
       }
     </section>
