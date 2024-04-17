@@ -31,7 +31,7 @@ const buildKeywordsString =
 
 const heroImageURL = heroImage.includes("http")
   ? heroImage
-  : new URL(heroImage, Astro.site);
+  : new URL(`posts/${heroImage}`, Astro.site);
 ---
 
 <!-- Global Metadata -->
