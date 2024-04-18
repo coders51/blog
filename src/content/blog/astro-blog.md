@@ -6,7 +6,7 @@ keywords: ["astro", "blog", "markdown"]
 pubDate: '03-25-2024 10:00'
 updatedDate: '04-05-2024 12:00'
 heroImage: 'astro-blog/hero.png'
-timeRead: '3'
+timeRead: '10'
 ---
 
 ## What is Astro?
@@ -68,14 +68,14 @@ npm create astro@latest
 
 I've follow these instructions to setup:
 
-1. "Empty" template
+1. "Include sample files" template
 2. using TypeScript
 3. installed dependencies
 4. init new git repo
 
 If you use VS Code, I recommend to use the [Astro language support extension](https://marketplace.visualstudio.com/items?itemName=astro-build.astro-vscode) to have syntax highlighting and autocomplentions for Astro code.
 
-You are ready to start the dev server, running this command:
+You are ready to start the dev server running this command:
 
 ```bash
 npm run dev
@@ -107,66 +107,94 @@ The structur looks pretty simple:
 
 - `src/`: you can organize your project folders here, like components, layouts, pages.
 - `public/`: it contains all the files that lives outside of the build process, like fonts, images and so on...
-- `dist/`: it contains the content that you want to deploy on your prod server.
+- `dist/`: it contains the content that you want to deploy on your prod server (available when you run `npm run build`).
 
 #### Components
 
 Components are reusable code available all over your website. An Astro component, by default, has the file extension `.astro` but as we already said before, we can create components in different languages like React, Svelte or Vue.
 
-Here an example of a `Author` component, written in Astro:
+Inside `/src/components` you can see an example of a `Card` component, written in Astro:
 
-```astro
+```astro title="/src/components/Card.astro" showLineNumbers
 ---
 interface Props {
-  author: string;
+  title: string;
+  body: string;
+  href: string;
 }
 
-const { author } = Astro.props;
+const { href, title, body } = Astro.props;
 ---
 
-<i class="text-sm">{author}</i>
-
+<li class="link-card">
+  <a href={href}>
+    <h2>
+      {title}
+      <span>&rarr;</span>
+    </h2>
+    <p>
+      {body}
+    </p>
+  </a>
+</li>
+<style>
+...
+</style>
 ```
 
 #### Layouts
 
-Layouts are components too, but works as code wrappers. Let's try to see an example:
+Layouts are components too, but works as code wrappers. Let's go to see the example in `/src/layouts`:
 
-```astro
+```astro title="/src/layouts/Layout.astro" showLineNumbers
 ---
-// src/layouts/BaseLayout.astro
-const { pageTitle = 'Hello world' } = Astro.props
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
 ---
 
+<!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
-    <title>{pageTitle}</title>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
   </head>
   <body>
-    <main>
-      <slot />
-    </main>
+    <slot />
   </body>
 </html>
+<style is:global>
+...
+</style>
 ```
 
 Remember the `<slot />` tag here, it will makes the trick.
 
-```astro
+```astro title="/src/pages/index.astro" showLineNumbers
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import Layout from '../layouts/Layout.astro';
 ---
 
-<BaseLayout title="Hello world">
-  <div>
-    <p>Some text...</p>
-  </div>
-</BaseLayout>
+<Layout title="Welcome to Astro.">
+  <main>
+    ...
+    <h1>Welcome to <span class="text-gradient">Astro</span></h1>
+    <p class="instructions">
+      To get started, open the directory <code>src/pages</code> in your project.<br />
+      <strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
+    </p>
+    ...
+  </main>
+</Layout>
 ```
 
-As you can see the `<slot />` tag was replaced by the HTML. 
+As you can see the `<slot />` tag was replaced by the HTML.
 When you have to do with some global contents and designs, layouts components simplifying your lifes and comes to your rescue.
 
 #### Pages
@@ -185,7 +213,7 @@ But Astro can also adopt the *dynamic routing* method.
 
 You can instruct an Astro page file to automatically create multiple pages with the same structure, useful when you have to build the same page but for different data (e.g. user profiles).
 
-The difference is that adopting the static output mode these pages are generated at build time and you need to create the list of "something" (in this case, blog's articles) who will receive a matching file. 
+The difference is that adopting the static output mode these pages are generated at build time and you need to create the list of "something" (in this case, blog's articles) who will receive a matching file.
 
 Adopting the dynamic mode pages are generated on demand for any matching path. Let's see an example:
 
@@ -194,5 +222,225 @@ src/pages/index.astro => blog.coders51.com
 src/pages/[slug].astro => blog.coders51.com/first-blog
 src/pages/[slug].astro => blog.coders51.com/second-blog
 ```
+
+### Clean extra code
+
+Due to we started from a template, maybe it's better to clean all the code we don't need anymore. Astro provide us an index with some Cards, a global style and so on, we can delete that code.
+
+It's important to maintain almost this structure of directories:
+
+```text
+├── src/
+│   ├── components/
+│   ├── layouts/
+│       └── Layout.astro
+│   └── pages/
+│       └── index.astro
+```
+
+Personally, I recommend to implement 3 different layout components.
+
+1. a `Layout` that contains the `<html />` tag and something like some global script, header and footer.
+2. a `BaseLayout` that contains only the things for basic pages, like the home page or the about page.
+3. a `BlogPostLayout` that contains the html structure for each blog post.
+
+### Content Collections
+
+To manage your blog posts at the best, you can use the **Content Collection** available from the *version 2.0* of Astro.
+
+Thanks to this powerful way to handle your posts, Collections help to organize your document, validate the YAML frontmatter and provide TypeScript type-safety for all your content.
+
+This is the most significant part, in my opinion, because moving your blog posts to the special `src/content/` folder will allow you to use more powerful and performant APIs to generate your blog post index and display your individual blog posts. And, another important thing, you can create a **schema** to define the common structure of each of your posts.
+
+You can read more in details about this on the [Astro Content Collection official guide](https://docs.astro.build/en/guides/content-collections/).
+
+How you can start? First of all, create a `src/content` folder, and inside of it, an `src/content/blog` folder.
+
+⚠️ *Only content collections are allowed inside the `src/content` directory. This directory cannot be used for anything else.*
+
+#### Schema
+
+You can define the schema as you wish, based on your preference and on what you want to include inside of your frontmatter on each blog post. You can create an `src/content/config.ts` like this:
+
+```ts title="/src/content/config.ts" showLineNumbers
+import { defineCollection, z } from "astro:content";
+
+const blog = defineCollection({
+  type: "content",
+  // Type-check frontmatter using a schema
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    author: z.string(),
+    pubDate: z.coerce.date(),
+  })
+});
+
+export const collections = { blog };
+```
+
+As you can see Astro uses [Zod](https://github.com/colinhacks/zod) to power its content schemas.
+
+#### Generate pages from collection
+
+Now you're ready to put some contents inside your blog. For the moment, you can create two different files: `src/content/blog/first-post.md` and `src/content/blog/second-post.md`. You have to add inside of these two files the right frontmatter schema that you have defined before:
+
+```text title="/src/content/blog/first-post.md"
+---
+title: 'First Post'
+description: '...'
+author: 'Andrea Junior Berselli'
+pubDate: '03-25-2024'
+---
+
+## Heading 2
+```
+
+```text title="/src/content/blog/second-post.md"
+---
+title: 'Second Post'
+description: '...'
+author: 'Andrea Junior Berselli'
+pubDate: '03-25-2024'
+---
+
+## Heading 2
+```
+
+Good to go, ready to generate dynamic pages from the collection 🚀
+
+First of all, create a page file called `src/pages/[...slug].astro`. You need to create a responsible page for generating each blog post because now your `md | mdx` files are **inside a collection** and they are no longer automatically become pages with the Astro file-based routing method. Doing this you will create a dynamic route to generate HTML pages from your collection entries. 
+
+But here's the trick, you can **query the collection** to get the content from each `md | mdx` file and make it available on each page that it will be generated ✨ 
+
+Let's see how this can be done:
+
+- #### Building for static output
+
+The right method for generating routes will depend on your **build output mode** that can be `static` or `server` (if you want a server-side rendering).
+
+We chose the static one, we're building a static website. So, you have to use the `getStaticPaths()` function to create pages from a single `src/pages` component during your build.
+
+- #### Querying collection
+
+Astro provides `getCollection()` function to query a collection and return one or more content entries.
+Accepts a string that must match the name of the folder within `/src/content/`. In our case is `blog`. Mapping the entries, you'll create your new URl paths using the **slug** property.
+
+- #### Pass content as props (Type-Safety)
+
+You can see that you can correctly type your component props with the `CollectionEntry` utility provided by `astro:content`. Also this utility takes a string argument that matches the name of your collection schema, and will inherit all of the properties of that collection’s schema.
+
+- #### Render content as HTML
+
+Once queried, you can **render Markdown or MDX entries to HTML** using the `render()` function property. Calling this function gives you access to rendered content and metadata, including a `<Content />` component.
+
+Let's see the final code:
+
+```astro
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import BlogPost from "../layouts/BlogPost.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts.map(post => ({
+    params: { slug: post.slug },
+    props: post
+  }));
+}
+
+type Props = CollectionEntry<"blog">;
+
+const post = Astro.props;
+const { Content } = await post.render();
+---
+```
+
+You can render the `<Content />` component wrapped in a `<BlogPost />` specific layout for each blog post that you're going to write. It may be useful to create a layout capable of dynamically displaying all the common data to any blog post you are going to write (e.g. the title, date, author and so on... ). Passing the `post` as a prop you can have access of all of this data.
+
+```astro title="/src/pages/[...slug].astro" {19,20,21} showLineNumbers
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import BlogPost from "../layouts/BlogPost.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts.map(post => ({
+    params: { slug: post.slug },
+    props: post
+  }));
+}
+
+type Props = CollectionEntry<"blog">;
+
+const post = Astro.props;
+const { Content } = await post.render();
+---
+
+<BlogPost post={post}>
+  <Content />
+</BlogPost>
+```
+
+Now you are ready to write your content, just create Markdown or MDX files and put it inside the `/src/content/blog` folder. Astro takes care of the rest! 💪
+
+### Blog list - Home page
+
+In the home of your project, inside the `src/pages/index.astro`, you can therefore create a list of links that lead to the blogs you will make.
+
+As you can see here below, you can get the `posts` using the `getCollection()` function. Here the result is ordered by the publication date, so you can understand how much handling of the data we can have available.
+
+Mapping the `posts` array, each post provide us all the data that we expect like title, description, author and so on...
+
+Clicking on a link, you should be able to go to the right URL that contains your Markdown or MDX post.
+
+```astro title="src/pages/index.astro" showLineNumbers
+---
+import { getCollection } from "astro:content";
+import FormattedDate from "../components/FormattedDate.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Author from "src/components/Author.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "src/consts";
+
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<BaseLayout>
+  <main>
+    <section>
+      {
+        posts.map(post => (
+          <div>
+            <a href={`/${post.slug}/`}>
+              <h3>
+                {post.data.title}
+              </h3>
+            </a>
+            <p>
+              {post.data.description}
+            </p>
+            <div>
+              <FormattedDate date={post.data.pubDate} />
+              <Author author={post.data.author} />
+            </div>
+          </div>
+        ))
+      }
+    </section>
+  </main>
+</BaseLayout>
+```
+
+## Handling images
+
+coming soon...
+
+## Astro configuration
+
+coming soon...
+
+## Styling with TailwindCss
 
 coming soon...
