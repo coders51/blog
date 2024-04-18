@@ -336,7 +336,7 @@ Once queried, you can **render Markdown or MDX entries to HTML** using the `rend
 
 Let's see the final code:
 
-```astro
+```astro title="src/pages/[...slug].astro" showLineNumbers
 ---
 import { type CollectionEntry, getCollection } from "astro:content";
 import BlogPost from "../layouts/BlogPost.astro";
