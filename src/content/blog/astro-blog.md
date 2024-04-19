@@ -63,7 +63,7 @@ You can migrate your existing app or website to Astro without rewrite entire new
 
 Search engines can easily crawl and index static HTML content. This improves your website's visibility in search engine results, generating more organic traffic. Astro automatically ensures that your content is easily accessible to search engine bots, resulting in higher rankings and greater discoverability.
 
-## Great community
+### Great community
 
 You can find tutorials, supports, blogs and a lot of other resources on the web.
 
@@ -335,9 +335,9 @@ pubDate: '03-25-2024'
 
 Good to go, ready to generate dynamic pages from the collection 🚀
 
-First of all, create a page file called `src/pages/[...slug].astro`. You need to create a responsible page for generating each blog post because now your `md | mdx` files are **inside a collection** and they are no longer automatically become pages with the Astro file-based routing method. Doing this you will create a dynamic route to generate HTML pages from your collection entries. 
+First of all, create a page file called `src/pages/[...slug].astro`. You need to create a responsible page for generating each blog post because now your `md | mdx` files are **inside a collection** and they are no longer automatically become pages with the Astro file-based routing method. Doing this you will create a dynamic route to generate HTML pages from your collection entries.
 
-But here's the trick, you can **query the collection** to get the content from each `md | mdx` file and make it available on each page that it will be generated ✨ 
+But here's the trick, you can **query the collection** to get the content from each `md | mdx` file and make it available on each page that it will be generated ✨
 
 Let's see how this can be done:
 
@@ -465,7 +465,7 @@ As we said before, Astro is **SEO-friendly**.
 
 You have to take advantage of this and you can easily do. How? For example, creating a single common component to manage your meta tags.
 
-Inside your `src/components` folder, create a new `BaseHead.astro` file (choose the name that you want, of course). The goal is to put this component inside your main layout in `src/layouts/Layout.astro`, into the `<head />` tag. 
+Inside your `src/components` folder, create a new `BaseHead.astro` file (choose the name that you want, of course). The goal is to put this component inside your main layout in `src/layouts/Layout.astro`, into the `<head />` tag.
 
 Assuming that we have added inside our `src/content/config.ts` a new property to define the hero image for each blog post.
 
@@ -548,16 +548,67 @@ When you want to share your brand new post on X to your friend, you can make a g
 
 Here the final result for this post:
 
-![Preview post](/public/posts/astro-blog/preview.png)
+![Preview post](/posts/astro-blog/preview.png)
 
 ## Handling images
 
-coming soon...
+Inside the `/public` folder you can manage the images you want to use in your posts as you wish.
+I strongly advise you to keep them organized so as not to create a single large pit where it will then be impossible to manage them in the future. You can create a subfolder called, for example, `/posts`
 
-## Astro configuration
-
-coming soon...
+For each post, create a subfolder called the same as the file relating to your new post. Inside it, put the hero image and all the other images you want to use. For example, for this post I've created a `/public/posts/astro-blog` folder, which contains the hero image and some other files.
 
 ## Styling with TailwindCss
 
+It has never been easier to install Tailwind in my entire life, just follow these simple steps suggested by the official [Tailwind guide](https://tailwindcss.com/docs/guides/astro). 💅
+
+## Astro configuration
+
+Let's see some Astro configuration inside the `/astro.config.mjs` file. Inside of it you can change the most of the configuration for your Astro app.
+
+As you can see, the `integrations` part is handled easily. I've handled the dark toggle theme button with a React component, and for doing that I've to integrate React in Astro.
+
+You can find more on how to install React on the [official guide](https://docs.astro.build/en/guides/integrations-guide/react/)
+
+🚨 SPOILER: it's very very easy!
+
+I've used `rehype-pretty-code` to magae the style of my markdown, in order to change the css and make beautify it for the lettors. You can findo more about it from these links:
+
+- [Official guidelines for plugins](https://docs.astro.build/it/guides/markdown-content/#markdown-plugins)
+- [Rehype pretty code guide](https://rehype-pretty.pages.dev)
+
+```js title="/astro.config.mjs" showLineNumbers
+import { defineConfig } from "astro/config";
+import mdx from "@astrojs/mdx";
+import sitemap from "@astrojs/sitemap";
+import tailwind from "@astrojs/tailwind";
+import react from "@astrojs/react";
+import rehypePrettyCode from "rehype-pretty-code";
+
+const options = {
+  keepBackground: false
+};
+
+// https://astro.build/config
+export default defineConfig({
+  markdown: {
+    syntaxHighlight: false,
+    rehypePlugins: [[rehypePrettyCode, options]]
+  },
+  site: "https://blog.coders51.com",
+  integrations: [mdx(), sitemap(), tailwind(), react()],
+  output: "static", // render website output static, change to "server" for SSR
+  server: {
+    host: true
+  }
+});
+```
+
+## Deploy on Github Pages
+
 coming soon...
+
+## Conclusions
+
+I had to create a blog for the company I work for and I was very undecided about which framework to use initially, given the incredible vastness of possibilities that the web offers today. After experimenting with Astro, however, I was immediately struck by its intuitive and simple approach for a front end developer like me. It is easily maintainable and deployable, which makes it even more attractive.
+
+🤝 **Astro is truly tailor-made for hosting a blog**.
