@@ -31,7 +31,7 @@ Build your site using React, Vue, Svelte, Solid, Preact or plain HTML and Javasc
 
 ## So, why Astro?
 
-Personally, i think that the most interesting thing is how Astro has perfected the technique based on the [**island architecture**](https://docs.astro.build/en/concepts/islands/). 
+Personally, i think that the most interesting thing is how Astro has perfected the technique based on the [**island architecture**](https://docs.astro.build/en/concepts/islands/).
 
 In other full-stack web frameworks this level of per-component optimization would be impossible without loading the entire page in JavaScript, delaying interactivity. In Astro, this kind of hydration (called partial or selective hydration) is built into the tool itself.
 
@@ -40,6 +40,32 @@ For example, Astro gives you some powerful modifiers like `:visible`, that autom
 To answer the question, in a few words, like the Astro's guide say itself:
 
 >Astro is the web framework for building content-driven websites like blogs, marketing, and e-commerce [...] If you need a website that loads fast and has great SEO, then Astro is for you.
+
+### Performance Boost
+
+A website built with Astro loads in a fraction of the time compared to traditional dynamic sites. It transforms your website into static HTML, CSS, and JavaScript files, ready to be served directly from a CDN or static file server. As a result, users enjoy faster page loading, leading to increased engagement and improved SEO rankings.
+
+### UI - Flexible
+
+The flexibility to incorporate components from different JavaScript frameworks like React, Vue, or Svelte within a single project. Reuse of existing code and integration with third-party tools can be incredible easy.
+
+### For devs
+
+Astro is dev-oriented! 🧑🏻‍💻
+
+Thanks to the component-based approach, enhancing code reusability and maintainability. This method allows for a more intuitive and efficient development process. Creating a new page with Astro involves concise and consistent syntax, boosting developer productivity.
+
+### Easy migration
+
+You can migrate your existing app or website to Astro without rewrite entire new applications! If you have another app written with another framework you can gradually move to Astro without the standard development efforts but with an incredible faster transition.
+
+### SEO Friendly
+
+Search engines can easily crawl and index static HTML content. This improves your website's visibility in search engine results, generating more organic traffic. Astro automatically ensures that your content is easily accessible to search engine bots, resulting in higher rankings and greater discoverability.
+
+## Great community
+
+You can find tutorials, supports, blogs and a lot of other resources on the web.
 
 ## How to build a blog with Astro
 
@@ -432,6 +458,97 @@ const posts = (await getCollection("blog")).sort(
   </main>
 </BaseLayout>
 ```
+
+## SEO - Create a common head for meta tags
+
+As we said before, Astro is **SEO-friendly**.
+
+You have to take advantage of this and you can easily do. How? For example, creating a single common component to manage your meta tags.
+
+Inside your `src/components` folder, create a new `BaseHead.astro` file (choose the name that you want, of course). The goal is to put this component inside your main layout in `src/layouts/Layout.astro`, into the `<head />` tag. 
+
+Assuming that we have added inside our `src/content/config.ts` a new property to define the hero image for each blog post.
+
+```ts title="src/content/config.ts" {11} showLineNumbers
+import { defineCollection, z } from "astro:content";
+
+const blog = defineCollection({
+  type: "content",
+  // Type-check frontmatter using a schema
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    author: z.string(),
+    pubDate: z.coerce.date(),
+    heroImage: z.string().optional(),
+  })
+});
+
+export const collections = { blog };
+```
+
+Getting the props from an Astro page (in this case: `src/pages/[...slug].astro`, where we render each blog post), you can pass them to your new component.
+
+```astro title="src/layouts/Layout.astro"
+---
+import BaseHead from "../components/BaseHead.astro";
+
+const { title, description, heroImage, author } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <BaseHead
+      title={title}
+      description={description}
+      heroImage={heroImage}
+      author={author}
+    />
+  </head>
+  <body>
+    ...
+  </body>
+</html>
+```
+
+Now, you can create dynamically the meta tag for your posts. For example, for the hero image:
+
+```astro title="src/components/BaseHead.astro" {10,19} showLineNumbers
+---
+interface Props {
+  title: string;
+  description: string;
+  author: string;
+  heroImage?: string;
+}
+
+// the URL must be the path to the image inside your /public folder.
+const heroImageURL = new URL(`posts/${heroImage}`, Astro.site);
+---
+
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+...
+<!-- Open Graph / Facebook -->
+...
+<meta property="og:image" content={heroImageURL} />
+...
+
+<!-- Twitter -->
+...
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={heroImageURL} />
+<meta name="author" content={author} />
+...
+```
+
+When you want to share your brand new post on X to your friend, you can make a great impression ✨
+
+Here the final result for this post:
+
+![Preview post](/public/posts/astro-blog/preview.png)
 
 ## Handling images
 
