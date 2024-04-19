@@ -6,7 +6,7 @@ keywords: ["astro", "blog", "markdown"]
 pubDate: '03-25-2024 10:00'
 updatedDate: '04-05-2024 12:00'
 heroImage: 'astro-blog/hero.png'
-timeRead: '10'
+timeRead: '18'
 ---
 
 ## What is Astro?
