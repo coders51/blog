@@ -605,7 +605,63 @@ export default defineConfig({
 
 ## Deploy on Github Pages
 
-coming soon...
+It's incredible easy to host an Astro website on **GitHub Pages**.
+
+Using [GitHub Actions](https://github.com/features/actions) you can deploy your site to GitHub Pages, in order to automate the build. Obviously, your code must be hosted on GitHub!
+
+Create a new file inside your project at `.github/workflows/deploy.yml` pasting this code.
+
+```yml title="deploy.yml"
+name: Deploy to GitHub Pages
+
+on:
+  # Trigger the workflow every time you push to the `main` branch
+  # Using a different branch name? Replace `main` with your branch’s name
+  push:
+    branches: [ main ]
+  # Allows you to run this workflow manually from the Actions tab on GitHub.
+  workflow_dispatch:
+
+# Allow this job to clone the repo and create a page deployment
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout your repository using git
+        uses: actions/checkout@v4
+      - name: Install, build, and upload your site
+        uses: withastro/action@v2
+        # with:
+          # path: . # The root location of your Astro project inside the repository. (optional)
+          # node-version: 20 # The specific version of Node that should be used to build your site. Defaults to 20. (optional)
+          # package-manager: pnpm@latest # The Node package manager that should be used to install dependencies and build your site. Automatically detected based on your lockfile. (optional)
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+```
+
+After that, you have to go to your GitHub repo inside the **Settings -> Pages**.
+
+Choose **GitHub Actions** as the source.
+
+Now, if you try to commit and push new changes you should see inside the **Actions tab** a new build process starting. After completion, your site should be published! 🚀
+
+Check inside the [official guide](https://docs.astro.build/en/guides/deploy/github/#configure-astro-for-github-pages) to see in details all the possible configurations.
+
+For example, inside your `/astro.config.mjs` the `site` string value should match your final URL destination.
 
 ## Conclusions
 
