@@ -22,9 +22,9 @@ function injectChild(items: TocElement[], item: TocElement): void {
 
 export function generateTableOfContents(
   headings: ReadonlyArray<MarkdownHeading>,
-  { maxHeadingLevel = 3, minHeadingLevel = 2 }: TocOptions = {}
+  { maxHeadingLevel = 2, minHeadingLevel = 2 }: TocOptions = {}
 ) {
-  // ignore headings that are too small or too big (h1 or h4)
+  // ignore headings that are too small or too big
   const bodyHeadings = headings.filter(
     ({ depth }) => depth >= minHeadingLevel && depth <= maxHeadingLevel
   );

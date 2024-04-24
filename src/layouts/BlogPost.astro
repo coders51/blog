@@ -2,9 +2,9 @@
 import type { CollectionEntry } from "astro:content";
 import Author from "../components/Author.astro";
 import FormattedDate from "../components/FormattedDate.astro";
-import { BackIcon } from "../components/icons/BackIcon";
 import { ClockIcon } from "../components/icons/ClockIcon";
 import Layout from "./Layout.astro";
+import TableOfContents from "src/components/TableOfContents.astro";
 
 interface Props {
   post: CollectionEntry<"blog">;
@@ -35,22 +35,6 @@ const { headings } = await post.render();
   author={author}
 >
   <div class="px-10 pb-10 sm:px-0">
-    <a
-      href="/"
-      class="flex w-fit items-center self-start space-x-2 no-underline mb-10"
-    >
-      <BackIcon />
-      <span>Blog</span>
-    </a>
-    {
-      heroImage && (
-        <img
-          src={`/posts/${heroImage}`}
-          alt={title}
-          class="w-full rounded object-cover max-h-96"
-        />
-      )
-    }
     <h1 class="text-center">{title}</h1>
     <div class="flex flex-col gap-y-2 text-sm">
       <div class="flex items-center space-x-2">
@@ -79,6 +63,9 @@ const { headings } = await post.render();
         )
       }
     </div>
+    <div class="my-10 xl:hidden block">
+      <TableOfContents headings={headings} />
+    </div>
     <hr />
     <slot />
   </div>
@@ -92,7 +79,7 @@ const { headings } = await post.render();
       anchor.addEventListener("click", function (e) {
         e.preventDefault();
 
-        const targetId = anchor?.getAttribute("href")?.substr(1);
+        const targetId = anchor?.getAttribute("href")?.slice(1);
 
         if (targetId === undefined) return;
 

@@ -27,11 +27,28 @@ const { title, description, headings, heroImage, keywords, author } =
       <main class="mb-auto mt-20">
         <article>
           <div class="flex items-start justify-center">
-            {headings?.length > 0 && <TableOfContents headings={headings} />}
-            <div
-              class="prose prose-sky w-full sm:pt-6 pt-4 xl:prose-xl lg:prose-lg dark:prose-slate dark:prose-invert marker:text-black prose-a:underline-offset-2 prose-blockquote:border-l-coders51 prose-code:text-white dark:marker:text-white prose-blockquote:dark:border-l-white"
-            >
-              <slot />
+            {
+              headings?.length > 0 && (
+                <aside class="sticky top-[6.5rem] order-2 ml-6 -me-32 hidden xl:block">
+                  <TableOfContents headings={headings} />
+                </aside>
+              )
+            }
+            <div class="flex flex-col items-center w-full xl:w-auto">
+              {
+                heroImage && (
+                  <img
+                    src={`/posts/${heroImage}`}
+                    alt={title}
+                    class="w-full flex object-cover xl:mt-8 xl:rounded max-h-96"
+                  />
+                )
+              }
+              <div
+                class="prose prose-sky w-full sm:pt-6 pt-4 xl:prose-xl lg:prose-lg dark:prose-slate dark:prose-invert marker:text-black prose-a:underline-offset-2 prose-blockquote:border-l-coders51 prose-code:text-white dark:marker:text-white prose-blockquote:dark:border-l-white"
+              >
+                <slot />
+              </div>
             </div>
           </div>
         </article>

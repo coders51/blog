@@ -4,7 +4,7 @@ description: "Our company needed a blog, what better opportunity to experiment w
 author: Andrea Junior Berselli
 keywords: ["astro", "blog", "markdown", "SSG", "framework"]
 pubDate: '03-25-2024 10:00'
-updatedDate: '04-05-2024 12:00'
+updatedDate: '04-24-2024 09:00'
 heroImage: 'astro-blog/hero.png'
 timeRead: '18'
 ---
