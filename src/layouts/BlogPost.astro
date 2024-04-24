@@ -36,32 +36,36 @@ const { headings } = await post.render();
 >
   <div class="px-10 pb-10 sm:px-0">
     <h1 class="text-center">{title}</h1>
-    <div class="flex flex-col gap-y-2 text-sm">
-      <div class="flex items-center space-x-2">
+    <div
+      class="flex flex-col flex-wrap items-center justify-center gap-4 text-sm"
+    >
+      <div class="flex items-center flex-wrap justify-center gap-4">
         <FormattedDate date={pubDate} />
-        <span>•</span>
         <Author author={author} />
       </div>
-      {
-        timeRead && (
-          <div class="flex items-center space-x-1">
-            <ClockIcon customClassName="w-5 h-5" />
-            <span class="text-sm text-coders51 dark:text-coders51dark">
-              {timeRead} min read
-            </span>
-          </div>
-        )
-      }
-      {
-        updatedDate && (
-          <div class="flex rounded-lg px-2 py-1 space-x-1 bg-coders51/10 dark:bg-black/30 w-fit">
-            <span class="text-coders51 dark:text-coders51dark">
-              Last updated on:{" "}
-            </span>
-            <FormattedDate date={updatedDate} icon={false} />
-          </div>
-        )
-      }
+
+      <div class="flex items-center flex-wrap justify-center gap-4">
+        {
+          timeRead && (
+            <div class="flex items-center space-x-1">
+              <ClockIcon customClassName="w-5 h-5" />
+              <span class="text-sm text-coders51 dark:text-coders51dark">
+                {timeRead} min read
+              </span>
+            </div>
+          )
+        }
+        {
+          updatedDate && (
+            <div class="flex rounded-lg px-2 py-1 space-x-1 bg-coders51/10 dark:bg-black/30 w-fit">
+              <span class="text-coders51 dark:text-coders51dark">
+                Last updated on:{" "}
+              </span>
+              <FormattedDate date={updatedDate} icon={false} />
+            </div>
+          )
+        }
+      </div>
     </div>
     <div class="my-10 xl:hidden block">
       <TableOfContents headings={headings} />

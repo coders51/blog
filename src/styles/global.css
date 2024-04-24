@@ -98,6 +98,10 @@ body {
     @apply rounded-md bg-gray-500/10 dark:bg-black/10;
   }
 
+  .prose h2 {
+    @apply pl-2 border-l-2 border-coders51 dark:border-coders51dark;
+  }
+
   .prose a {
     @apply hover:text-current transition-colors duration-300;
   }
