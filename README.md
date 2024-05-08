@@ -64,6 +64,7 @@ pubDate: '04-12-2024 10:00' // MM-DD-YYYY HH:MM
 updatedDate: '04-05-2024 12:00' // MM-DD-YYYY HH:MM (optional)
 heroImage: 'my-new-post/hero.jpg' // (optional)
 timeRead: '3' // minutes (optional)
+draft: true | false // true: you can see the post on your local dev server, not in PROD (optional, false by default)
 ---
 ```
 
