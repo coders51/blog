@@ -13,7 +13,8 @@ draft: true
 So, we all know about RabbitMQ, the world's most loved message broker, right? We at coders51 use it, like, all the time: it's our go-to solution to asynchronous communication between different services. It's performant, reliable, battle-tested, and written in Erlang (which helps with the reliability and performance parts). What is not to love?
 But, did you know about the good word? That RabbitMQ can basically substitute Kafka in your infrastructure?
 This is a somewhat less known feature that has been around for about 3 years now, first as a plugin and then as a native feature (more on that later).
-Basically, a stream is a persistent, append-only log of messages that allows for high-throughput publishing and consumption, where messages are retained and can be re-read multiple times by consumers, enabling use cases such as event sourcing, replay, and long-term storage of event data. Isn't that basically what a Kafka topic is? Not quite, but close. We'll revisit this point later.
+Basically, a stream is a persistent, append-only log of messages that allows for high-throughput publishing and consumption, where messages are retained and can be re-read multiple times by consumers, enabling use cases such as event sourcing, replay, and long-term storage of event data. Obviously, messages in a stream do not need to stay in the stream indefinetely: we also have the tools to define a retention policy so that messages that are not considered relevant anymore can be archived or destroyed.
+Isn't that basically what a Kafka topic is? Not quite, but close. We'll revisit this point later.
 
 ## Differences between Stream Plugin and native Streams
 Just like we anticipated earlier, Streams were first introduced as a plugin and then implemented as a native feature: but the plugin still exists and is basically the standard way in which streams are used. How so? 
@@ -35,18 +36,30 @@ Because you already got Rabbit and it can do both. Why have two services in your
 Kafka is still a little bit faster though in throughput, so if you really are challenging the boundaries of Kafka maybe it's better if you keep using that.
 
 ## Performances and benchmarking
-Now, the RabbitMQ site tells us this. But we want to double check and I've run the test on my machine. Here's what I've found
+Now, the RabbitMQ site tells us this. 
+But we want to double check and I've run the test on my machine, which is a three years old laptop with a bunch of crap running on.
+Here's what I've found
 
 ### Stream plugin
+==WIP==
 
 ### Stream native
+==WIP==
 
 ### Now, let's compare it to Kafka, same machine
+==WIP==
 
 ## What is your use case?
-### Event Sourcing
+Now, you might be asking yourself: alright, what is all of this good for anyways? Here are some ideas.
 
-### Logs
+### Event Sourcing
+If you are looking to do some EventSourcing, a RabbitMQ stream might be a low hanging fruit for an event store. Some more specific products, free or otherwise, are available but I find that what a stream offers is more than enough to cover most cases.
+
+### Log aggregation
+Do you need a single place where every log produced by your stack eventually ends up in? A stream again might be the solution you are looking for.
+
+### Data pipeline
+Maybe you have in place a multi-step procedure to transform data, and would like to connect each step to the next - this is also an issue in which RabbitMQ streams shine.
 
 
 
