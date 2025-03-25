@@ -3,7 +3,7 @@ title: "Exchanging messages between clients when using Phoenix LiveView"
 description: "For an internal project we needed to exchange messages between web clients while using Phoenix LiveView as backend. This is a description of the solution we implemented."
 author: "Igor Cappello"
 keywords: ["elixir", "liveview", "phoenix", "pubsub"]
-pubDate: "25-03-2025 18:00"
+pubDate: "03-25-2025 18:00"
 timeRead: "20"
 heroImage: "exchanging-messages-between-elixir-liveviews/liveview-broadcast-with-pubsub.png"
 ---
